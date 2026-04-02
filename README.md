@@ -9,7 +9,7 @@
 
 Requirements: docker
 
-Use *build.sh* to build static binaries. Binaries will be saved to `bin/`
+Use `build.sh` to build static binaries. Binaries will be saved to `bin/`
 
 ## Usage
 
