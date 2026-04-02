@@ -2,6 +2,8 @@
 > Debian 13.4, Secure Boot **ON**, initramfs-tools
 >> Secure Boot was created to mitigate low-level software rootkits. However, in many standard Linux distributions, this 'secure boot' does not extend to the initramfs leading to compromise when an attacker has physical access.
 
+[![Russian](https://img.shields.io/badge/README-на_русском-red.svg)](README.ru.md)
+
 > [!WARNING]
 > Educational purposes only.
 
