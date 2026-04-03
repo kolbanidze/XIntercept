@@ -13,10 +13,8 @@ def safe_string(string: str) -> str:
     return result
 
 
-def unlock_drive(drive: str, master_key: bytes, name: str, cipher: str, cipher_mode: str, key_length: str, offset: str) -> int:
-    proc = subprocess.run(['cryptsetup', 'open', '--type', 'plain',
-                           '--cipher', f'{cipher}-{cipher_mode}', '--key-size', str(key_length),
-                           '--offset', offset, '--master-key-file=/dev/stdin', '--hash', 'plain', drive, name],
+def unlock_drive(drive: str, master_key: bytes, name: str) -> int:
+    proc = subprocess.run(['cryptsetup', 'luksOpen', '--volume-key-file', '/dev/stdin', drive, name],
                           input=master_key, capture_output=False)
     return proc.returncode
 
@@ -102,7 +100,7 @@ if __name__ == "__main__":
         with open(input_file, "r") as file:
             mk_dump = file.read()
         master_key, cipher_name, cipher_mode, payload_offset, mk_bits = parse_mk_dump(mk_dump)
-        status = unlock_drive(drive_path, master_key, mapper_name, cipher_name, cipher_mode, mk_bits, payload_offset)
+        status = unlock_drive(drive_path, master_key, mapper_name)
         if status == 0:
             print(f"[+] LUKS volume successfully unlocked as {mapper_name}!")
         else:
@@ -128,7 +126,7 @@ if __name__ == "__main__":
         print(f"[+] Saved captured dump to {file_path}")
     
     master_key, cipher_name, cipher_mode, payload_offset, mk_bits = parse_mk_dump(captured_mk_dump)
-    status = unlock_drive(drive_path, master_key, mapper_name, cipher_name, cipher_mode, mk_bits, payload_offset)
+    status = unlock_drive(drive_path, master_key, mapper_name)
     if status == 0:
         print(f"[+] LUKS volume successfully unlocked as {mapper_name}!")
     else:
