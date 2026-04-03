@@ -110,6 +110,8 @@ if [ -n "$IFACE" ]; then
 fi
 ```
 
+Не забудьте сделать скрипт исполняемым: `chmod +x scripts/init-premount/network`
+
 4. Модификация initramfs: **перехват мастер-ключа**
 
 Ранее (в LUKS1) мы могли выполнить команду `dmsetup table --showkeys <имя_тома>` и извлечь мастер-ключ; однако в LUKS2 ключи шифрования хранятся в kernel keyring.

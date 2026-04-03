@@ -110,6 +110,8 @@ if [ -n "$IFACE" ]; then
 fi
 ```
 
+Don't forget to make it executable: `chmod +x scripts/init-premount/network`
+
 4. Modifying initramfs: **intercepting master key**
 
 Previously (LUKS1) we could execute the command `dmsetup table --showkeys <volume_name>` and extract the master key; however, with LUKS2 the encryption keys are stored in the kernel keyring.
